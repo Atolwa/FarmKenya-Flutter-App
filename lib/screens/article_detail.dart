@@ -28,7 +28,11 @@ class ArticleDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("FarmKenya"),
+        title: Text("FarmKenya",
+          style: TextStyle(fontFamily: 'Periodico',
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold),),
+
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 8),
