@@ -2,8 +2,10 @@
     package="com.example.flutter_app">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:usesCleartextTraffic="true"
         android:label="FarmKenya"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon"
+       >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -38,5 +40,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
     </application>
+
+
 </manifest>

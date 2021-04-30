@@ -4,14 +4,17 @@ import 'package:flutter_app/screens/article_detail.dart';
 import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_html/style.dart';
 import '../models/article.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_app/screens/main_article.dart';
+import 'package:flutter_app/screens/art_detail.dart';
+import 'package:flutter_app/screens/related_articles_list.dart';
 
 
 class ArticleListView extends StatelessWidget {
   ArticleListView({@required this.category});
 
   Category category;
+  final endDate= DateTime.now();
 
 
   @override
@@ -27,6 +30,7 @@ class ArticleListView extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
+
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) => MyCard(snapshot.data[index]),
@@ -47,6 +51,19 @@ class MyCard extends StatelessWidget {
 
   Article article;
 
+  static String calculateTimeDifferenceBetween(
+      {@required DateTime publishdate, @required DateTime endDate}) {
+    int seconds = endDate.difference(publishdate).inSeconds;
+    if (seconds < 60)
+      return '$seconds seconds ago';
+    else if (seconds >= 60 && seconds < 3600)
+      return '${publishdate.difference(endDate).inMinutes.abs()} minutes ago';
+    else if (seconds >= 3600 && seconds < 86400)
+      return '${publishdate.difference(endDate).inHours} hours ago';
+    else
+      return '${publishdate.difference(endDate).inDays} days ago';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -54,7 +71,7 @@ class MyCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ArticleDetailView(article: article),
+              builder: (context) => ArticleDetailView(article:article),
             ),
           );
         },
@@ -82,7 +99,9 @@ class MyCard extends StatelessWidget {
                     article.author,
                     style: TextStyle(color: Colors.grey, fontFamily: 'Periodico',),
                   ),
-                  Text(' ${DateFormat('dd-MM-yyyy').format(article.publishdate,)}',
+                  Text(calculateTimeDifferenceBetween(publishdate: article.publishdate, endDate: DateTime.now()),
+                    //DateTime.now().difference(article.publishdate).inDays.toString(),
+                   // ' ${DateFormat('dd-MM-yyyy').format(article.publishdate,)}',
                     style: TextStyle(color: Colors.grey,fontFamily: 'Periodico',),
                   ),
                 ],
