@@ -3,12 +3,16 @@ import 'package:flutter_app/screens/video_items.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_app/models/video.dart';
+import 'package:flutter_app/vids/web_view_container.dart';
+import 'package:flutter_app/screens/main_video.dart';
 
-class HomeScreen extends StatelessWidget {
+class VideoList extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+
           title: Text(
             "FarmKenya",
             style: TextStyle(
@@ -85,9 +89,24 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        child: InkWell(
+        onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MainVideo(video:video),
+        ),
+      );
+    },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+            color: Colors.black,
+           height: 150,
+
+            //width: 50,
+          ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
 
@@ -100,23 +119,13 @@ class MyCard extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
 
-            child: VideoItems(
-              videoPlayerController: VideoPlayerController.network(
-                video.videoURL,
-              ),
-              looping: false,
-              autoplay: true,
-            ),
-          ),
 
 
 
         ],
       ),
+        )
     );
   }
 }

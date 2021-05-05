@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/category.dart';
 import 'package:flutter_app/screens/article_list.dart';
-import 'package:flutter_app/screens/homescreen.dart';
+import 'package:flutter_app/screens/video_list.dart';
 import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/ftv.dart';
+import 'package:flutter_app/screens/farmers_tv.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -26,8 +26,9 @@ class _HomeState extends State<Home> {
 
       body: <Widget>[
         MyHomePage(),
-       HomeScreen(),
-        Ftv(),
+       VideoList(),
+       FarmersTV(),
+       // Ftv(),
         Container(
           color: Colors.yellow,
         ),

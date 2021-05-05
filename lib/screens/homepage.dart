@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
               length: snapshot.data.length,
               child: Scaffold(
                   appBar: AppBar(
+
                     title: Text("FarmKenya",
                       style: TextStyle(fontFamily: 'Periodico',
                           fontSize: 24.0,

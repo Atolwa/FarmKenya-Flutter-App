@@ -5,8 +5,6 @@ import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_html/style.dart';
 import '../models/article.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_app/screens/main_article.dart';
-import 'package:flutter_app/screens/art_detail.dart';
 import 'package:flutter_app/screens/related_articles_list.dart';
 
 

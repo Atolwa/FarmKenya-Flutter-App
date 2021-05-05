@@ -1,32 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/article.dart';
 import 'package:flutter_app/models/related_articles.dart';
+import 'package:flutter_app/models/video.dart';
 import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_app/screens/related_articles_list.dart';
-import 'package:flutter_app/screens/article_detail.dart';
+import 'package:flutter_app/vids/web_view_container.dart';
 
+class MainVideo extends StatelessWidget {
+  MainVideo({@required this.video});
 
-
-class ArticleDetail extends StatefulWidget {
-  ArticleDetail({@required this.article});
-  Article article;
-
-  @override
-  _ArticleDetailState createState() => _ArticleDetailState();
-}
-
-class _ArticleDetailState extends State<ArticleDetail> {
+  Video video;
   int currentIndex=0;
-  Article article;
 
 
-  void changePage(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
   static String calculateTimeDifferenceBetween(
       {@required DateTime publishdate, @required DateTime endDate}) {
     int seconds = endDate.difference(publishdate).inSeconds;
@@ -43,24 +31,31 @@ class _ArticleDetailState extends State<ArticleDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "FarmKenya",
-          style: TextStyle(
-              fontFamily: 'Periodico',
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: <Widget>[
-        ArticleDetailView(article: article),
-        Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: 8, vertical: 4),
 
-          child: RelatedArticleListView(article: article),
-        ),
-      ][currentIndex],
+      body:
+      Container(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: FutureBuilder<Video>(
+              future: API.getVideo(video.id),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text("Ooops! Something went wrong."),
+                  );
+                }
+                if (snapshot.hasData) {
+                  video = snapshot.data;
+
+                  return  WebViewContainer(video.videoURL);
+
+
+                }
+              }
+          )
+
+      ),
+
+
     );
   }
 }
