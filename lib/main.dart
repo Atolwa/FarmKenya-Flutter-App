@@ -40,7 +40,7 @@ class _MySplashState extends State<MySplash> {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-        seconds: 10,
+        seconds: 8,
         navigateAfterSeconds: new AfterSplash(),
         title: new Text('FarmKenya Initiative - The Standard',
           style: new TextStyle(

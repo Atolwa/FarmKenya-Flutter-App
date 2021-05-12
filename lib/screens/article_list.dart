@@ -6,6 +6,8 @@ import 'package:flutter_html/style.dart';
 import '../models/article.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_app/screens/related_articles_list.dart';
+import 'package:flutter_app/models/related_articles.dart';
+import 'package:flutter_app/screens/related_articles_details.dart';
 
 
 class ArticleListView extends StatelessWidget {
@@ -48,20 +50,37 @@ class MyCard extends StatelessWidget {
   MyCard(this.article);
 
   Article article;
+  RelatedArticles relatedArticles;
 
   static String calculateTimeDifferenceBetween(
       {@required DateTime publishdate, @required DateTime endDate}) {
     int seconds = endDate.difference(publishdate).inSeconds;
+    int week= (seconds/604800).floor();
+    int month =(seconds/2592000).floor();
+    int year = (seconds/31536000).floor();
     if (seconds < 60)
       return '$seconds seconds ago';
     else if (seconds >= 60 && seconds < 3600)
-      return '${publishdate.difference(endDate).inMinutes.abs()} minutes ago';
+      return '${publishdate.difference(endDate).inMinutes.abs()} minute(s) ago';
     else if (seconds >= 3600 && seconds < 86400)
-      return '${publishdate.difference(endDate).inHours} hours ago';
+      return '${-publishdate.difference(endDate).inHours} hour(s) ago';
+    else if(seconds >= 86400 && seconds < 604800)
+      return '${-publishdate.difference(endDate).inDays} day(s) ago';
+    else if(seconds >= 604800 && seconds <2592000)
+      return '$week week(s) ago';
+    else if(seconds >= 2592000 && seconds <31536000)
+      return '$month month(s) ago';
     else
-      return '${publishdate.difference(endDate).inDays} days ago';
-  }
+      return '$year year(s) ago';
 
+  }
+ String dateDiff(@required DateTime publishdate){
+  DateTime start = publishdate;
+  DateTime end = DateTime.now();
+  Duration difference = end.difference(start);
+  print(difference.inDays);
+
+}
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -69,7 +88,7 @@ class MyCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ArticleDetailView(article:article),
+              builder: (context) => ArticleDetailView(article: article),
             ),
           );
         },
@@ -97,7 +116,9 @@ class MyCard extends StatelessWidget {
                     article.author,
                     style: TextStyle(color: Colors.grey, fontFamily: 'Periodico',),
                   ),
-                  Text(calculateTimeDifferenceBetween(publishdate: article.publishdate, endDate: DateTime.now()),
+                  Text(
+                    //dateDiff(publishdate:article.publishdate),
+                    (calculateTimeDifferenceBetween(publishdate: article.publishdate, endDate: DateTime.now())),
                     //DateTime.now().difference(article.publishdate).inDays.toString(),
                    // ' ${DateFormat('dd-MM-yyyy').format(article.publishdate,)}',
                     style: TextStyle(color: Colors.grey,fontFamily: 'Periodico',),

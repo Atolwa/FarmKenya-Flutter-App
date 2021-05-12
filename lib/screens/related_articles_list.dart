@@ -10,8 +10,8 @@ import 'package:flutter_app/screens/related_articles_details.dart';
 
 
 class RelatedArticleListView extends StatelessWidget {
-  RelatedArticleListView({@required this.article});
-
+  RelatedArticleListView({@required this.article,@required this.relatedArticles});
+  RelatedArticles relatedArticles;
   Article article;
   final endDate= DateTime.now();
 
@@ -65,7 +65,7 @@ class RelatedArticleListView extends StatelessWidget {
 
 
 class MyList extends StatelessWidget {
-  MyList(this.relatedArticles);
+  MyList(@required this.relatedArticles);
 
   RelatedArticles relatedArticles;
 
@@ -84,7 +84,8 @@ class MyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return
+      Card(
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -97,7 +98,7 @@ class MyList extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
+          /*  Container(
               height: 185,
               width: double.infinity,
               child: Image.network(
@@ -107,7 +108,7 @@ class MyList extends StatelessWidget {
             ),
             SizedBox(
               height: 4,
-            ),
+            ),*/
 
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -129,5 +130,7 @@ class MyList extends StatelessWidget {
         ),
       ),
     );
+
+
   }
 }

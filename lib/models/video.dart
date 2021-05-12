@@ -5,6 +5,7 @@ class Video {
   String videoURL;
   DateTime publishdate;
   String keywords;
+  String thumbnail;
 
   Video(
       {this.id,
@@ -12,6 +13,7 @@ class Video {
         this.title,
         this.publishdate,
         this.keywords,
+        this.thumbnail,
         videoURL}) {
     this.videoURL = "https://www.youtube.com/embed/$videoURL";
   }
@@ -21,6 +23,7 @@ class Video {
     categoryid = Json['categoryid'];
     title = Json['title'];
     videoURL = "https://www.youtube.com/embed/${Json['videoURL']}";
+    thumbnail=Json['thumbnail'];
     publishdate = DateTime.parse(Json['publishdate']);
     keywords = Json['keywords'];
   }
