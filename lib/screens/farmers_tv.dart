@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/vids/web_view_container.dart';
+import 'package:flutter_app/lifecycle_manager.dart';
+
 class FarmersTV extends StatelessWidget {
   final _links = ['www.dailymotion.com/embed/video/x7opfez'];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return LifeCycleManager(
+        child: Scaffold(
         body: //SafeArea(
            // child: SingleChildScrollView(
              //   child:// Column(
@@ -13,9 +16,9 @@ class FarmersTV extends StatelessWidget {
                  // _links.map((link) => _urlButton(context, link)).toList(),
                 //  children:
                       WebViewContainer('www.dailymotion.com/embed/video/x7opfez'),
-                );
+                ));
   }
-  Widget _urlButton(BuildContext context, String url) {
+ /* Widget _urlButton(BuildContext context, String url) {
     return Container(
         padding: EdgeInsets.all(20.0),
         child: FlatButton(
@@ -28,5 +31,5 @@ class FarmersTV extends StatelessWidget {
   void _handleURLButtonPress(BuildContext context, String url) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => WebViewContainer(url)));
-  }
+  }*/
 }

@@ -7,6 +7,7 @@ import 'package:flutter_app/screens/article_list.dart';
 import 'services/api_service.dart';
 import 'package:flutter_app/home.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:flutter_app/lifecycle_manager.dart';
 
 
 void main() {
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return LifeCycleManager(
+      child:MaterialApp(
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           color: Colors.green,
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       home: new MySplash(),
       //Home(),
-    );
+    ));
   }
 }
 class MySplash extends StatefulWidget {

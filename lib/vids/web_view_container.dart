@@ -6,10 +6,13 @@ class WebViewContainer extends StatefulWidget {
   @override
   createState() => _WebViewContainerState(this.url);
 }
-class _WebViewContainerState extends State<WebViewContainer> {
+class _WebViewContainerState extends State<WebViewContainer> with WidgetsBindingObserver  {
+  WebViewController _controller;
   var _url;
   final _key = UniqueKey();
   _WebViewContainerState(this._url);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +31,45 @@ class _WebViewContainerState extends State<WebViewContainer> {
           ),
         ),
         body: Column(
-          children: [
-            Expanded(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AspectRatio(aspectRatio: 560/846,
                 child: WebView(
                     key: _key,
                     javascriptMode: JavascriptMode.unrestricted,
-                    initialUrl: _url))
+                    initialUrl: _url,
+                    onWebViewCreated:(controller) => _controller = controller,
+        ),
+    ),
           ],
         ));
   }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    _controller?.reload();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _controller?.reload();
+    }
+    if (state == AppLifecycleState.resumed) {
+    //  _controller?.reload();
+    }
+  }
+
 }

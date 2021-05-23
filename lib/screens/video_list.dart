@@ -5,6 +5,9 @@ import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_app/models/video.dart';
 import 'package:flutter_app/vids/web_view_container.dart';
 import 'package:flutter_app/screens/main_video.dart';
+//import 'package:flutter_app/screens/jni.dart';
+
+
 
 class VideoList extends StatelessWidget {
 
@@ -104,9 +107,8 @@ class MyCard extends StatelessWidget {
         onTap: () {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => MainVideo(video:video),
-        ),
-      );
+          builder: (context) => MainVideo(video: video),
+      ));
     },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
