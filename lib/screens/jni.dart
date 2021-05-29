@@ -4,9 +4,6 @@ import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_app/vids/web_view_container.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-
-
-
 class MainVideo extends StatefulWidget {
   MainVideo({@required this.video});
 

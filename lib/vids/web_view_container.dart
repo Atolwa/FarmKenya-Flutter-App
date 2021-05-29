@@ -3,13 +3,16 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewContainer extends StatefulWidget {
   final String url;
+
   WebViewContainer(this.url);
+
   @override
   createState() => _WebViewContainerState();
 }
 
 class _WebViewContainerState extends State<WebViewContainer>
     with WidgetsBindingObserver {
+      
   WebViewController _controller;
   final _key = UniqueKey();
   bool isScreenVisible = true;
@@ -64,15 +67,14 @@ class _WebViewContainerState extends State<WebViewContainer>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      setState(() {
-        isScreenVisible = false;
-      });
-    }
     if (state == AppLifecycleState.resumed) {
-      _controller?.reload();
       setState(() {
         isScreenVisible = true;
+      });
+      _controller?.reload();
+    } else {
+      setState(() {
+        isScreenVisible = false;
       });
     }
   }
